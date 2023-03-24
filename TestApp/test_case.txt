@@ -1,0 +1,34 @@
+Test Case for endpoint available-rooms/
+
+Test Case Name: Valid Request with all parameters
+Input: GET /available-rooms?check_in=2023-04-01&check_out=2023-04-03&building=Test Building
+Expected Output: HTTP Status Code 200 OK
+
+Test Case Name: Valid Request with minimum parameters
+Input: GET /available-rooms?check_in=2023-04-01&check_out=2023-04-03&building=Test Building
+Expected Output: HTTP Status Code 200 OK
+
+Test Case Name: Invalid Request with missing check_in parameter
+Input: GET /available-rooms?check_out=2023-04-03&building=Test Building
+Expected Output: HTTP Status Code 400 Bad Request, Error message indicating that the check_in parameter is missing.
+
+Test Case Name: Invalid Request with missing check_out parameter
+Input: GET /available-rooms?check_in=2023-04-01&building=Test Building
+Expected Output: HTTP Status Code 400 Bad Request, Error message indicating that the check_out parameter is missing.
+
+Test Case Name: Invalid Request with invalid date format
+Input: GET /available-rooms?check_in=01-04-2023&check_out=03-04-2023&building=Test Building
+Expected Output: HTTP Status Code 400 Bad Request, Error message indicating that the date format is invalid. The correct format should be YYYY-MM-DD.
+
+Test Case Name: Invalid Request with invalid parameter value
+Input: GET /available-rooms?check_in=2023-04-01&check_out=2023-04-03&building=TestBuilding
+Expected Output: HTTP Status Code 400 Bad Request, Error message indicating that the building parameter value is invalid.
+
+
+Test Case Name: Invalid Request with date range too large
+Input: GET /available-rooms?check_in=2023-04-01&check_out=2023-05-01&building=Test Building
+Expected Output: HTTP Status Code 400 Bad Request, Error message indicating that the date range is too large. The maximum allowed range is 30 days.
+
+Test Case Name: Invalid Request with dates in the past
+Input: GET /available-rooms?check_in=2022-04-01&check_out=2022-04-03&building=Test Building
+Expected Output: HTTP Status Code 400 Bad Request, Error message indicating that the dates are in the past. The dates should be in the future.
